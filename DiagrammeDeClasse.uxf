@@ -64,7 +64,7 @@ teaches to &amp;gt;&lt;/panel_attributes&gt;&lt;additional_attributes&gt;10;10;1
 +Modifier
 +Supprimer
 +Consulter
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>60</x><y>460</y><w>270</w><h>240</h></coordinates><panel_attributes>__Traitement__
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>60</x><y>460</y><w>270</w><h>240</h></coordinates><panel_attributes>__Ordonnance__
 --
 -Medicament: String
 -nom_Medecin : string
@@ -98,7 +98,7 @@ teaches to &amp;gt;&lt;/panel_attributes&gt;&lt;additional_attributes&gt;10;10;1
 +Consulter
 
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>180</x><y>320</y><w>50</w><h>160</h></coordinates><panel_attributes>lt=-
-m1=1..*
+m1=1
 m2=1..*
 </panel_attributes><additional_attributes>10;10;10;140</additional_attributes></element><element><id>Relation</id><coordinates><x>320</x><y>170</y><w>350</w><h>50</h></coordinates><panel_attributes>lt=-
 m1=1
