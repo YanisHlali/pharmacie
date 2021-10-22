@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/composants.css">
+    <link rel="stylesheet" href="/css/recherche.css">
+</head>
+<body>
+    <header>
+        <h1>Pharmacie SAUTHEUHZ</h1>
+    </header>
+
+    <div class="container">
+        <table>
+            <tr>
+                <td>Nom :</td>
+                <td>Prénom :</td>
+                <td>Téléphone :</td>
+            </tr>
+        </table>
+
+        <% for (let i = 0; i < result.length; i++) { %>
+            <table>
+                <tr>
+                    <td><%- result[0].nom %></td>
+                    <td><%- result[0].prenom %></td>
+                    <td><%- result[0].DateDeNaissance %></td>
+                </tr>
+            </table>
+        <% } %>
+    </div>
+</body>
+</html>

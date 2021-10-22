@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato&display=swap');
+header {
+    height: 80px;
+    background: #93EAEB;
+}
+header h1 {
+    font-size: 40px;
+    padding-top: 10px;
+    padding-left: 10px;
+    font-family: 'Lato', sans-serif;
+    background: #93EAEB;
+}
