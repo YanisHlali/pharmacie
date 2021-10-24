@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/composants.css">
+    <link rel="stylesheet" href="/css/informations.css">
+</head>
+<body>
+    <%- include("header") %>
+    <br />
+    <% if (result != "") { %>
+        <table>
+            <tr>
+                <td><span class="intitule">Civilité</span><br /><br /><%- result[0].id %></td>
+                <td><span class="intitule">Nom</span><br /><br /><%- result[0].nom %></td>
+                <td><span class="intitule">Adresse</span><br /><br /><%- result[0].adresse %></td>
+                <td><span class="intitule">Num Sécu Social</span><br /><br /><%- result[0].NumSecuSocial %></td>
+            </tr>
+        </table>
+        <br /><br /><br />
+        <table>
+            <tr>
+                <td><span class="intitule">Téléphone</span><br /><br /><%- result[0].telephone %></td>
+                <td><span class="intitule">Date de Naissance</span><br /><br /><%- result[0].DateDeNaissance %></td>
+                <td><span class="intitule">Adresse E-mail</span><br /><br /><%- result[0].Email %></td>
+            </tr>
+        </table>
+    <% } else { %>
+        <%- include("erreur") %>
+    <% } %>
+</body>
+</html>

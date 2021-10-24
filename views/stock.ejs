@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/composants.css">
+    <link rel="stylesheet" href="/css/stock.css">
+</head>
+<body>
+    <%- include("header") %>
+    <table>
+        <tr>
+            <td><b>Médicaments</b></td>
+            <td><b>Quantité (bois)</b></td>
+        </tr>
+        <% for (let i = 0; i < result.length; i++) { %>
+            <tr>
+                <td><%- result[i].Nom %></td>
+                <td><%- result[i].Quantité %></td>
+            </tr>
+        <% } %>
+    </table>
+</body>
+</html>
