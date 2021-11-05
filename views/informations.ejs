@@ -12,24 +12,129 @@
     <%- include("header") %>
     <br />
     <% if (result != "") { %>
+        <h1><%- result[0].prenom %> <%- result[0].nom %></h1>
+        <button class="ajout" id="buttonOrdonnance">+ ajouter une ordonnance</button><br />
+        <button class="ajout" id="buttonTraitement">+ ajouter un traitement</button>
+        <br /><br />
         <table>
             <tr>
-                <td><span class="intitule">Civilité</span><br /><br /><%- result[0].id %></td>
-                <td><span class="intitule">Nom</span><br /><br /><%- result[0].nom %></td>
                 <td><span class="intitule">Adresse</span><br /><br /><%- result[0].adresse %></td>
-                <td><span class="intitule">Num Sécu Social</span><br /><br /><%- result[0].NumSecuSocial %></td>
+                <td><span class="intitule">Num Sécu Social</span><br /><br /><%- result[0].numSecuSocial %></td>
+                <td><span class="intitule">Adresse E-mail</span><br /><br /><%- result[0].email %></td>
             </tr>
         </table>
         <br /><br /><br />
         <table>
             <tr>
                 <td><span class="intitule">Téléphone</span><br /><br /><%- result[0].telephone %></td>
-                <td><span class="intitule">Date de Naissance</span><br /><br /><%- result[0].DateDeNaissance %></td>
-                <td><span class="intitule">Adresse E-mail</span><br /><br /><%- result[0].Email %></td>
+                <td><span class="intitule">Date de Naissance</span><br /><br /><%- result[0].dateDeNaissance %></td>
             </tr>
         </table>
+        <br /><br /><br /><br /><br />
+        <% if (result[0].prenomMedecin) { %>
+            <h2>Ordonnance</h2>
+            <% for (let i = 0; i < result.length; i++) { %>
+                <p><a href="/views/informations.ejs/ordonnance/<%= result[i].id %>">Ordonnance <%- i %></a></p>
+            <% } %>
+        <% } %>
     <% } else { %>
         <%- include("erreur") %>
     <% } %>
+
+
+
+    <script type="text/javascript">
+        let buttonOrdonnance = document.getElementById("buttonOrdonnance")
+        let buttonTraitement = document.getElementById("buttonTraitement")
+
+        buttonOrdonnance.addEventListener("click", function() {
+            if (!document.getElementById("ordonnance")) {
+                let ordonnance = document.createElement("div")
+                ordonnance.setAttribute("class","ordonnance")
+                ordonnance.setAttribute("id","ordonnance")
+
+                let form = document.createElement("form")
+                form.setAttribute("action",document.location.href+"/ordonnance")
+                form.setAttribute("method","POST")
+
+                let date = document.createElement("input")
+                date.setAttribute("name","date")
+                date.setAttribute("type","date")
+                date.setAttribute("required","true")
+
+                let prenom = document.createElement("input")
+                prenom.setAttribute("name","prenom")
+                prenom.setAttribute("placeholder","Prenom du medecin")
+                prenom.setAttribute("required","true")
+
+                let nom = document.createElement("input")
+                nom.setAttribute("name","nom")
+                nom.setAttribute("placeholder","Nom du medecin")
+                nom.setAttribute("required","true")
+
+                let maladie = document.createElement("input")
+                maladie.setAttribute("name","maladie")
+                maladie.setAttribute("placeholder","Maladie")
+                maladie.setAttribute("required","true")
+
+                let valider = document.createElement("input")
+                valider.setAttribute("type","submit")
+                valider.setAttribute("class","valider")
+                valider.setAttribute("required","true")
+
+                form.append(date,prenom,nom,maladie,valider)
+                ordonnance.append(form)
+                document.body.append(ordonnance)
+            } else {
+                document.getElementById("ordonnance").remove()
+            }
+        })
+
+        buttonTraitement.addEventListener("click", function () {
+            if (!document.getElementById("traitement")) {
+                let traitement = document.createElement("div")
+                traitement.setAttribute("class","traitement")
+                traitement.setAttribute("id","traitement")
+
+                let form = document.createElement("form")
+                form.setAttribute("action",document.location.href+"/ordonnance")
+                form.setAttribute("method","POST")
+
+                let numOrdonnance = document.createElement("input")
+                numOrdonnance.setAttribute("name","numOrdonnance")
+                numOrdonnance.setAttribute("placeholder","Numéro de l'ordonnance")
+
+                let medicament = document.createElement("input")
+                medicament.setAttribute("name","medicament")
+                medicament.setAttribute("placeholder","medicament")
+
+                let dosage = document.createElement("input")
+                dosage.setAttribute("name","dosage")
+                dosage.setAttribute("placeholder","dosage")
+
+                let quantite = document.createElement("input")
+                quantite.setAttribute("name","quantite")
+                quantite.setAttribute("placeholder","quantite")
+
+                let duree = document.createElement("input")
+                duree.setAttribute("name","duree")
+                duree.setAttribute("placeholder","durée")
+
+                let renouvellement = document.createElement("input")
+                renouvellement.setAttribute("name","renouvellement")
+                renouvellement.setAttribute("placeholder","renouvellement")
+
+                let valider = document.createElement("input")
+                valider.setAttribute("type","submit")
+                valider.setAttribute("class","valider")
+
+                form.append(numOrdonnance,medicament,dosage,duree,quantite,renouvellement, valider)
+                traitement.append(form)
+                document.body.append(traitement)
+            } else {
+                document.getElementById("traitement").remove()
+            }
+        })
+    </script>
 </body>
 </html>

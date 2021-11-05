@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/nouveau.css">
+    <link rel="stylesheet" href="/css/composants.css">
+</head>
+<body>
+    <%- include("header") %>
+    <form action="/views/nouveau.ejs" method="post">
+        <label>Nom :</label>
+        <input type="text" name="nom" autocomplete="off" /><br /><br />
+
+        <label>Prénom :</label>
+        <input type="text" name="prenom" autocomplete="off" /><br /><br />
+
+        <label>Sexe :</label>
+        <input type="text" name="sexe" placeholder="homme ou femme" autocomplete="off" /><br /><br />
+
+        <label >Date de Naissance :</label>
+        <input type="date" name="dateDeNaissance" autocomplete="off" /><br/><br />
+
+        <label>Adresse :</label>
+        <input type="text" name="adresse" autocomplete="off" /><br /><br />
+
+        <label>Numéro de Sécurité Social :</label>
+        <input type="number" name="numSecuSocial" autocomplete="off" /><br /><br />
+
+        <label>Téléphone :</label>
+        <input type="text" name="telephone" autocomplete="off" /><br /><br />
+
+        <label >E-Mail :</label>
+        <input type="text" name="email" autocomplete="off" /><br/><br />
+
+        <input type="submit" value="Envoyer" />
+    </form>
+</body>
+</html>

@@ -3,6 +3,30 @@
     padding: 0;
 }
 
+h1 {
+    font-size: 40px;
+    font-family: 'Lato', sans-serif;
+    text-align: center;
+}
+
+h2 {
+    font-size: 30px;
+    font-family: 'Lato', sans-serif;
+}
+
+button.ajout {
+    display: block;
+    font-family: 'Lato', sans-serif;
+    border: 1px solid grey;
+    border-radius: 10px;
+    cursor: pointer;
+    width: auto;
+    font-size: 25px;
+    position: relative;
+    left: 10px;
+    padding: 10px;
+}
+
 table {
     margin-left: 3%;
     width: 97%;
@@ -17,4 +41,31 @@ td {
 span.intitule {
     font-weight: bold;
     text-decoration: underline;
+}
+
+div.traitement,div.ordonnance {
+    border: 1px solid red;
+    margin: 0 auto;
+    width: 75%;
+}
+
+input {
+    width: 150px;
+    font-size: 20px;
+    height: 20px;
+    margin-left: 10px;
+    padding: 5px;
+    outline: none;
+    text-align: center;
+}
+
+input.valider {
+    height: 40px;
+}
+
+div.ordonnanceAffichage {
+    display: block;
+    width: 50%;
+    margin: 0 auto;
+    border: 1px solid green;
 }
