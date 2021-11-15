@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+</head>
+<body>
+    <%- include("header") %>
+    <br /><br /><br />
+    <div class="container">
+        <div class="field">
+            <form action="/views/liste.ejs" method="POST">
+                <div class="control">
+                    <h2 class="title is-2" style="text-align: center;">Rechercher</h2><br />
+                </div>
+                <input class="input" type="text" name="nom" autocomplete="off" />
+                <div class="box has-text-centered">
+                    <button class="button is-link" style="margin: 0 auto;" type="submit">Valider</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
