@@ -12,8 +12,6 @@ app.use(express.urlencoded({ extended: true}))
 
 app.use('/', Routeur);
 
-
-
 app.listen(port, () => {
     console.log('Ecoute du port ' + port)
 });

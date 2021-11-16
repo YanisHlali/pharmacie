@@ -5,136 +5,111 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/composants.css">
-    <link rel="stylesheet" href="/css/informations.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="/js/informations.js"></script>
 </head>
 <body>
     <%- include("header") %>
     <br />
     <% if (result != "") { %>
-        <h1><%- result[0].prenom %> <%- result[0].nom %></h1>
-        <button class="ajout" id="buttonOrdonnance">+ ajouter une ordonnance</button><br />
-        <button class="ajout" id="buttonTraitement">+ ajouter un traitement</button>
-        <br /><br />
-        <table>
-            <tr>
-                <td><span class="intitule">Adresse</span><br /><br /><%- result[0].adresse %></td>
-                <td><span class="intitule">Num Sécu Social</span><br /><br /><%- result[0].numSecuSocial %></td>
-                <td><span class="intitule">Adresse E-mail</span><br /><br /><%- result[0].email %></td>
-            </tr>
-        </table>
-        <br /><br /><br />
-        <table>
-            <tr>
-                <td><span class="intitule">Téléphone</span><br /><br /><%- result[0].telephone %></td>
-                <td><span class="intitule">Date de Naissance</span><br /><br /><%- result[0].dateDeNaissance %></td>
-            </tr>
-        </table>
-        <br /><br /><br /><br /><br />
+        <h2 class="title is-2" style="text-align:center;"><%- result[0].prenom %> <%- result[0].nom %></h2>
+        <div class="buttons">
+            <button class="button is-info" id="buttonOrdonnance">+ ajouter une ordonnance</button>
+        </div>
+
+        <div class="columns is-fluid">
+            <div class="column">
+                <article class="message">
+                    <div class="message-header">
+                        <p>Sexe</p>
+                    </div>
+                    <div class="message-body">
+                        <%- result[0].sexe %>
+                    </div>
+                </article>
+            </div>
+
+            <div class="column">
+                <article class="message">
+                    <div class="message-header">
+                        <p>Date de Naissance</p>
+                    </div>
+                    <div class="message-body">
+                        <%- result[0].dateDeNaissance %>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="column">
+                <article class="message">
+                    <div class="message-header">
+                        <p>Téléphone</p>
+                    </div>
+                    <div class="message-body">
+                        <%- result[0].telephone %>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <div class="columns">
+            <div class="column">
+                <article class="message">
+                    <div class="message-header">
+                        <p>Adresse</p>
+                    </div>
+                    <div class="message-body">
+                        <%- result[0].adresse %>
+                    </div>
+                </article>
+            </div>
+            <div class="column">
+                <article class="message">
+                    <div class="message-header">
+                        <p>E-Mail</p>
+                    </div>
+                    <div class="message-body">
+                        <%- result[0].email %>
+                    </div>
+                </article>
+            </div>
+            
+            <div class="column">
+                <article class="message">
+                    <div class="message-header">
+                        <p>Numéro de Sécurité Sociale</p>
+                    </div>
+                    <div class="message-body">
+                        <%- result[0].numSecuSocial %>
+                    </div>
+                </article>
+            </div>
+        </div>
+        
         <% if (result[0].prenomMedecin) { %>
-            <h2>Ordonnance</h2>
-            <% for (let i = 0; i < result.length; i++) { %>
-                <p><a href="/views/informations.ejs/ordonnance/<%= result[i].id %>">Ordonnance <%- i %></a></p>
-            <% } %>
+            <div class="content">
+                <h2  class="title is-2">Ordonnance</h2>
+                <ul>
+                    <% for (let i = 0; i < result.length; i++) { %>
+                        <li><a href="/views/informations.ejs/ordonnance/<%= result[i].id %>">Ordonnance <%- i+1 %></a></li>
+                        <button class="button is-link is-light"><a href="/views/informations.ejs/ajoutTraitement/<%= result[i].id %>"><i class="fas fa-plus"></i></a></button>
+                        <button class="button is-link is-light"><a href="/views/informations.ejs/supprimerTraitement/<%= result[i].id %>"><i class="fas fa-trash"></i></a></button>
+                        <button class="button is-link is-light"><a href="/views/informations.ejs/modifierTraitement/<%= result[i].id %>"><i class="fas fa-pen"></i></a></button>
+                    <% } %>
+                </ul>
+            </div>
         <% } %>
     <% } else { %>
         <%- include("erreur") %>
     <% } %>
 
 
-
     <script type="text/javascript">
         let buttonOrdonnance = document.getElementById("buttonOrdonnance")
         let buttonTraitement = document.getElementById("buttonTraitement")
 
-        buttonOrdonnance.addEventListener("click", function() {
-            if (!document.getElementById("ordonnance")) {
-                let ordonnance = document.createElement("div")
-                ordonnance.setAttribute("class","ordonnance")
-                ordonnance.setAttribute("id","ordonnance")
-
-                let form = document.createElement("form")
-                form.setAttribute("action",document.location.href+"/ordonnance")
-                form.setAttribute("method","POST")
-
-                let date = document.createElement("input")
-                date.setAttribute("name","date")
-                date.setAttribute("type","date")
-                date.setAttribute("required","true")
-
-                let prenom = document.createElement("input")
-                prenom.setAttribute("name","prenom")
-                prenom.setAttribute("placeholder","Prenom du medecin")
-                prenom.setAttribute("required","true")
-
-                let nom = document.createElement("input")
-                nom.setAttribute("name","nom")
-                nom.setAttribute("placeholder","Nom du medecin")
-                nom.setAttribute("required","true")
-
-                let maladie = document.createElement("input")
-                maladie.setAttribute("name","maladie")
-                maladie.setAttribute("placeholder","Maladie")
-                maladie.setAttribute("required","true")
-
-                let valider = document.createElement("input")
-                valider.setAttribute("type","submit")
-                valider.setAttribute("class","valider")
-                valider.setAttribute("required","true")
-
-                form.append(date,prenom,nom,maladie,valider)
-                ordonnance.append(form)
-                document.body.append(ordonnance)
-            } else {
-                document.getElementById("ordonnance").remove()
-            }
-        })
-
-        buttonTraitement.addEventListener("click", function () {
-            if (!document.getElementById("traitement")) {
-                let traitement = document.createElement("div")
-                traitement.setAttribute("class","traitement")
-                traitement.setAttribute("id","traitement")
-
-                let form = document.createElement("form")
-                form.setAttribute("action",document.location.href+"/ordonnance")
-                form.setAttribute("method","POST")
-
-                let numOrdonnance = document.createElement("input")
-                numOrdonnance.setAttribute("name","numOrdonnance")
-                numOrdonnance.setAttribute("placeholder","Numéro de l'ordonnance")
-
-                let medicament = document.createElement("input")
-                medicament.setAttribute("name","medicament")
-                medicament.setAttribute("placeholder","medicament")
-
-                let dosage = document.createElement("input")
-                dosage.setAttribute("name","dosage")
-                dosage.setAttribute("placeholder","dosage")
-
-                let quantite = document.createElement("input")
-                quantite.setAttribute("name","quantite")
-                quantite.setAttribute("placeholder","quantite")
-
-                let duree = document.createElement("input")
-                duree.setAttribute("name","duree")
-                duree.setAttribute("placeholder","durée")
-
-                let renouvellement = document.createElement("input")
-                renouvellement.setAttribute("name","renouvellement")
-                renouvellement.setAttribute("placeholder","renouvellement")
-
-                let valider = document.createElement("input")
-                valider.setAttribute("type","submit")
-                valider.setAttribute("class","valider")
-
-                form.append(numOrdonnance,medicament,dosage,duree,quantite,renouvellement, valider)
-                traitement.append(form)
-                document.body.append(traitement)
-            } else {
-                document.getElementById("traitement").remove()
-            }
-        })
+        boutonOrdonnance(buttonOrdonnance)
+        boutonTraitement(buttonTraitement)
     </script>
 </body>
 </html>
