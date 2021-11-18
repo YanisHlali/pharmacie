@@ -15,7 +15,7 @@
     <% if (result != "") { %>
         <h2 class="title is-2" style="text-align:center;"><%- result[0].prenom %> <%- result[0].nom %></h2>
         <div class="buttons">
-            <button class="button is-info" id="buttonOrdonnance">+ ajouter une ordonnance</button>
+            <button class="button is-info" id="buttonOrdonnance">+ Ajouter une ordonnance</button>
         </div>
 
         <div class="columns is-fluid">
@@ -93,16 +93,24 @@
                     <% for (let i = 0; i < result.length; i++) { %>
                         <li><a href="/views/informations.ejs/ordonnance/<%= result[i].id %>">Ordonnance <%- i+1 %></a></li>
                         <button class="button is-link is-light"><a href="/views/informations.ejs/ajoutTraitement/<%= result[i].id %>"><i class="fas fa-plus"></i></a></button>
-                        <button class="button is-link is-light"><a href="/views/informations.ejs/supprimerTraitement/<%= result[i].id %>"><i class="fas fa-trash"></i></a></button>
-                        <button class="button is-link is-light"><a href="/views/informations.ejs/modifierTraitement/<%= result[i].id %>"><i class="fas fa-pen"></i></a></button>
+                        <button class="button is-link is-light"><a href="/views/informations.ejs/supprimerOrdonnance/<%= result[i].id %>"><i class="fas fa-trash"></i></a></button>
+                        <button class="button is-link is-light"><a href="/views/informations.ejs/modifierOrdonnance/<%= result[i].id %>"><i class="fas fa-pen"></i></a></button>
                     <% } %>
                 </ul>
             </div>
         <% } %>
     <% } else { %>
-        <%- include("erreur") %>
+        <div class="container">
+            <article class="message is-danger mb-0">
+                <div class="message-header">
+                    <p>Erreur</p>
+                </div>
+                <div class="message-body">
+                    <p class="content is-large">Vous devez ajouter un traitement pour visualer l'ordonnance</p>
+                </div>
+            </article>
+        </div>
     <% } %>
-
 
     <script type="text/javascript">
         let buttonOrdonnance = document.getElementById("buttonOrdonnance")

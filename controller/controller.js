@@ -54,8 +54,8 @@ const modifierPatientGET = (req,res) => {
 }
 
 const modifierPatientPOST = (req,res) => {
-    let requete = `UPDATE patients SET nom=${req.body.nom}, prenom=${req.body.prenom}, sexe=${erq.body.femme}, dateDeNaissance=${req.body.dateDeNaissance},`
-    requete += `telephone=${req.body.telephone},adresse=${req.body.adresse},email=${req.body.email},numSecuSocial=${req.body.numSecuSocial} `
+    let requete = `UPDATE patients SET nom='${req.body.nom}', prenom='${req.body.prenom}', sexe='${req.body.sexe}', dateDeNaissance='${req.body.dateDeNaissance}',`
+    requete += `telephone=${req.body.telephone},adresse='${req.body.adresse}',email='${req.body.email}',numSecuSocial=${req.body.numSecuSocial} `
     requete += `WHERE id=${req.params.id}`
     db.query(requete,(err,result) => {
         if (err) throw err;
@@ -105,6 +105,15 @@ const informationsPOST = (req,res) => {
     }
 }
 
+const modifierOrdonnance = (req,res) => {
+    let requete = `UPDATE ordonnance SET date='${req.body.date}',nomMedecin='${req.body.nomMedecin}',`
+    requete += `prenomMedecin='${req.body.prenomMedecin}',maladie='${req.body.maladie}' WHERE id=${req.params.id}`
+    db.query(requete,(err,result) => {
+        if (err) throw err;
+        res.redirect("/views/liste.ejs")
+    })
+}
+
 const ordonnance = (req,res) => {
     db.query(`SELECT * FROM ordonnance,traitement,patients WHERE ordonnance.id=traitement.idOrdonnance AND ordonnance.idPatient=patients.id AND ordonnance.id=${req.params.id}`,(err,result) => {
         if (result != "") {
@@ -112,14 +121,13 @@ const ordonnance = (req,res) => {
 
             doc
             .fontSize(15)
-            .text(result[0].prenomMedecin,50,50)
-            .text(result[0].nomMedecin,50,75)
+            .text(result[0].prenomMedecin+" "+result[0].nomMedecin,50,50)
             .text(result[0].prenom+" "+result[0].nom,400,125)
             .text("Le "+result[0].date,400,175)
             let j = 0
             for (let i = 0; i < result.length; i++) {
                 doc.text(result[i].medicament+" - "+result[i].quantite + " boites",100,225+j)
-                doc.text(result[i].dosage+" comprimés pendant "+result[i].durée+" mois",100,250+j)
+                doc.text(result[i].dosage+" comprimés pendant "+result[i].duree+" mois",100,250+j)
                 doc.text("A renouveller "+result[i].renouvellement+" fois",100,275+j)
                 j = j + 100
             }
@@ -137,7 +145,7 @@ const ajoutTraitementGET = (req,res) => {
 }
 
 const ajoutTraitementPOST = (req,res) => {
-    let requete = `INSERT INTO traitement (medicament,dosage,durée,quantite,renouvellement,idOrdonnance) VALUES ('${req.body.medicament}',${req.body.dosage},${req.body.duree},${req.body.quantite},${req.body.renouvellement},${req.params.id})`
+    let requete = `INSERT INTO traitement (medicament,dosage,duree,quantite,renouvellement,idOrdonnance) VALUES ('${req.body.medicament}',${req.body.dosage},${req.body.duree},${req.body.quantite},${req.body.renouvellement},${req.params.id})`
     db.query(requete,(err,result) => {
         if (err) throw err;
         res.render("traitement.ejs", {result: ""})
@@ -168,6 +176,13 @@ const modifierTraitementPOST = (req,res) => {
 const supprimerTraitement = (req,res) => {
     db.query(`DELETE FROM traitement WHERE idOrdonnance=${req.params.id}`,(err,result) => {
         if (err) throw err;
+        res.redirect('/views/liste.ejs')
+    })
+}
+
+const supprimerOrdonnance = (req,res) => {
+    db.query(`DELETE FROM traitement WHERE idOrdonnance=${req.params.id}`,(err,result) => {
+        if (err) throw err;
     })
     db.query(`DELETE FROM ordonnance WHERE id=${req.params.id}`,(err,result) => {
         if (err) throw err;
@@ -176,8 +191,23 @@ const supprimerTraitement = (req,res) => {
 }
 
 const stock = (req,res) => {
-    db.query("SELECT Nom,Quantité FROM stock",(err,result) => {
-        res.render("stock.ejs",{ result: result })
+    db.query("SELECT * FROM stock,traitement WHERE stock.nom=traitement.medicament",(err,result) => {
+        console.log(result)
+        let medicaments = []
+        for (let i = 0; i < result.length; i++) {
+            medicaments.push(result[i].medicament)
+        }
+        let quantite = []
+        for (let i = 0; i < result.length; i++) {
+            quantite.push(result[i].medicament)
+            let quantiteAPush = []
+            for (let j = 0; j < 6; j++) {
+                quantiteAPush.push(result[i].quantiteStock-(result[i].quantite*j))
+            }
+            quantite.push(quantiteAPush)
+        }
+        console.log(quantite)
+        res.render("stock.ejs",{ result: result, medicaments: medicaments, quantite: quantite })
     })
 }
 
@@ -204,12 +234,14 @@ module.exports = {
     supprimerPatient,
     informationsGET,
     informationsPOST,
+    modifierOrdonnance,
     ordonnance,
     ajoutTraitementGET,
     ajoutTraitementPOST,
     modifierTraitementGET,
     modifierTraitementPOST,
     supprimerTraitement,
+    supprimerOrdonnance,
     stock,
     nouveauGET,
     nouveauPOST

@@ -12,41 +12,42 @@
 <body>
     <%- include("header") %>
     <% if (result == "") { %>
+<!--------------------- AJOUT TRAITEMENT --------------------->
     <h2 class="title is-2" style="text-align:center;">Ajouter un nouveau traitement</h2>
         <div class="container">
-            <form id="form" method="post">
+            <form id="ajoutTraitement" method="post">
                 <div class="field">
                     <label class="label">Médicament</label>
                     <div class="control">
-                        <input class="input" type="text" name="medicament" placeholder="Médicament" autocomplete="off">
+                        <input class="input" type="text" name="medicament" placeholder="Médicament" autocomplete="off" required="true">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Dosage (en mg)</label>
                     <div class="control">
-                        <input class="input" type="number" name="dosage" placeholder="Dosage (en mg)" autocomplete="off">
+                        <input class="input" type="number" name="dosage" placeholder="Dosage (en mg)" autocomplete="off" required="true">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Durée (en mois)</label>
                     <div class="control">
-                        <input class="input" type="number" name="duree" placeholder="Durée (en mois)" autocomplete="off">
+                        <input class="input" type="number" name="duree" placeholder="Durée (en mois)" autocomplete="off" required="true">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Quantité (en boîtes)</label>
                     <div class="control">
-                        <input class="input" type="number" name="quantite" placeholder="Quantité (en boîtes)" autocomplete="off">
+                        <input class="input" type="number" name="quantite" placeholder="Quantité (en boîtes)" autocomplete="off" required="true">
                     </div>
                 </div>
 
                 <div class="field">
                     <label class="label">Renouvellement</label>
                     <div class="control">
-                        <input class="input" type="number" name="renouvellement" placeholder="Renouvellement" autocomplete="off">
+                        <input class="input" type="number" name="renouvellement" placeholder="Renouvellement" autocomplete="off" required="true">
                     </div>
                 </div>
 
@@ -58,18 +59,53 @@
             </form>
         </div>
         <% } else { %>
-            <h2 class="title is-2" style="text-align:center;">Modifier traitement</h2>
+<!--------------------- MODIFIER ORDONNANCE --------------------->
+            <h2 class="title is-2" style="text-align:center;">Modifier l'ordonnance</h2>
+            <div class="container">
+                <form id="modifierOrdonnance" method="POST">
+                    <div class="field">
+                        <label class="label">Date</label>
+                        <div class="control">
+                            <input class="input" type="date" name="date" autocomplete="off" value="<%- result[0].date %>" required="true">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Nom du Medecin</label>
+                        <div class="control">
+                            <input class="input" type="text" name="nomMedecin" placeholder="Nom du Medecin" autocomplete="off" value="<%- result[0].nomMedecin %>" required="true">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Prénom du Medecin</label>
+                        <div class="control">
+                            <input class="input" type="text" name="prenomMedecin" placeholder="Prénom du Medecin" autocomplete="off" value="<%- result[0].prenomMedecin %>" required="true">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Maladie</label>
+                        <div class="control">
+                            <input class="input" type="text" name="maladie" placeholder="Maladie" autocomplete="off" value="<%- result[0].maladie %>" required="true">
+                        </div>
+                    </div>
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <button class="button is-link">Envoyer</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+<!--------------------- MODIFIER TRAITEMENT --------------------->
             <% for (let i = 0; i < result.length; i++) { %>
+            <h2 class="title is-2" style="text-align:center;">Modifier les traitements</h2>
             <h3 class="title is-3" style="text-align:center;">Traitement n°<%- i+1 %></h3>
             <div class="container">
-                <form id="<%- result[i].id %>" method="post">
+                <form class="modifierTraitement" id="<%- result[i].id %>" method="post">
                     <div class="field">
                         <label class="label">Médicament</label>
                         <div class="control">
                             <input class="input" type="text" name="medicament" placeholder="Médicament" autocomplete="off" value="<%- result[i].medicament %>">
                         </div>
                     </div>
-
                     <div class="field">
                         <label class="label">Dosage (en mg)</label>
                         <div class="control">
@@ -104,18 +140,28 @@
                         </div>
                     </div>
                 </form>
+                <div style="display: inline-block;">
+                    <div class="control">
+                        <p class="button is-danger"><a id="supprimerTraitement" style="color: white;">Supprimer</a></p>
+                    </div>
+                </div>
             </div>
             <% } %>
         <% } %>
         <script>
-            let form = document.getElementById('form')
+            let form = document.getElementById('ajoutTraitement')
             if (form) form.setAttribute('action',document.location.href)
 
-            let forms = document.querySelectorAll('form')
+            let forms = document.querySelectorAll('.modifierTraitement')
             for (let i = 0; i < forms.length; i++) {
-                console.log(forms)
                 forms[i].setAttribute('action',document.location.href+"/"+forms[i].id)
             }
+
+            let modifierOrdonnance = document.getElementById('modifierOrdonnance')
+            modifierOrdonnance.setAttribute("action",document.location.href)
+
+            let supprimerTraitement = document.getElementById('supprimerTraitement')
+            supprimerTraitement.setAttribute("href",document.location.href.replace('modifierOrdonnance','supprimerTraitement'))
         </script>
 </body>
 
