@@ -13,6 +13,6 @@
     Effectuées les commandes suivante pour pouvoir utiliser l'application correctement.
     npm install -g nodemon
     npm install pdfkit
-    Puis faite nodemon server.js
-    Puis taper sur un navigateur localhost/3000,
+    Puis faite nodemon server.js,
+    taper sur un navigateur localhost/3000,
     si le server n'a eu aucune erreur alors l'interface intranet fonctionnera.
