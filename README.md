@@ -1,10 +1,18 @@
-# Pharmacie
+# Pharmacie Sautheuhz
 
 # Description
-    C'est un outil de gestion des ordonnances pour les clients sensibles ayant des pathologies lourdes.
+    C'est un outil intranet de gestion des clients et des ordonnances pour les clients ayant des traitements réguliers.
+
 
 # Installer
-    Faire les commandes suivante pour pouvoir utiliser l'app.
+    Après le download du fichier ouvrir server.js sur un éditeur de code,
+    puis ouvrir un terminal et effectuées les étapes suivante
+
+    cd utilisateur/Nom du dossier(pharmaciemain).
+
+    Effectuées les commandes suivante pour pouvoir utiliser l'application correctement.
     npm install -g nodemon
     npm install pdfkit
-    Bonjour
+    Puis faite nodemon server.js
+    Puis taper sur un navigateur localhost/3000,
+    si le server n'a eu aucune erreur alors l'interface intranet fonctionnera.
