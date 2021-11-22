@@ -11,15 +11,20 @@ function creerElement(element,name,type,classe,placeholder) {
 function boutonOrdonnance(buttonOrdonnance) {
     buttonOrdonnance.addEventListener("click", function() {
         if (!document.getElementById("ordonnance")) {
+            buttonOrdonnance.innerHTML = " - Retirer le formulaire"
+            buttonOrdonnance.setAttribute("class","button is-danger")
+            
             let ordonnance = document.createElement("div")
             ordonnance.setAttribute("class","container")
             ordonnance.setAttribute("id","ordonnance")
 
             let titre = document.createElement("h2")
-            titre.innerHTML = "Ajout d'une ordonnance"
+            titre.innerHTML = "Ajouter une ordonnance"
+            titre.setAttribute("class","title is-2")
+            titre.style.textAlign = "center"
     
             let form = document.createElement("form")
-            form.setAttribute("action",document.location.href+"/ordonnance")
+            form.setAttribute("action",document.location.href+"/ajouterOrdonnance")
             form.setAttribute("method","POST")
     
             let date = document.createElement("input")
@@ -49,56 +54,9 @@ function boutonOrdonnance(buttonOrdonnance) {
             ordonnance.append(titre,form)
             document.body.append(ordonnance)
         } else {
+            buttonOrdonnance.innerHTML = "+ Ajouter une ordonnance"
+            buttonOrdonnance.setAttribute("class","button is-info")
             document.getElementById("ordonnance").remove()
-        }
-    })
-}
-
-function boutonTraitement(buttonTraitement) {
-    buttonTraitement.addEventListener("click", function () {
-        if (!document.getElementById("traitement")) {
-            let traitement = document.createElement("div")
-            traitement.setAttribute("class","container")
-            traitement.setAttribute("id","traitement")
-
-            let form = document.createElement("form")
-            form.setAttribute("action",document.location.href+"/ordonnance")
-            form.setAttribute("method","POST")
-
-            let numOrdonnance = document.createElement("input")
-            creerElement(numOrdonnance,"numOrdonnance","number","input","Numéro de l'ordonnance")
-
-            let medicament = document.createElement("input")
-            creerElement(medicament,"medicament","text","input","Médicaments")
-
-            let dosage = document.createElement("input")
-            creerElement(dosage,"dosage","number","input","Dosage (en mg)")
-
-            let quantite = document.createElement("input")
-            creerElement(quantite,"quantite","number","input","Quantité (en boîtes)")
-
-            let duree = document.createElement("input")
-            creerElement(duree,"duree","number","input","Durée (en mois)")
-
-            let renouvellement = document.createElement("input")
-            creerElement(renouvellement,"renouvellement","number","input","Renouvellement")
-
-            let valider = document.createElement("input")
-            creerElement(valider,"","submit","button","")
-
-            let elements = [numOrdonnance,medicament,dosage,duree,quantite,renouvellement,valider]
-
-            for (let i = 0; i < elements.length; i++) {
-                let div = document.createElement("div")
-                div.setAttribute("class","field")
-                div.append(elements[i])
-                form.append(div)
-            }
-            
-            traitement.append(form)
-            document.body.append(traitement)
-        } else {
-            document.getElementById("traitement").remove()
         }
     })
 }

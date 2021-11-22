@@ -24,8 +24,8 @@
     <div class="navbar-end">
       <div class="navbar-item">
         <div class="buttons">
-          <a class="button is-link" href="/views/nouveau.ejs">Nouveau</a>
-          <a class="button is-link" href="/views/stock.ejs">Stock</a>
+          <a class="button is-link" href="/patient/formulaire">Nouveau</a>
+          <a class="button is-link" href="/stock">Stock</a>
         </div>
       </div>
     </div>
@@ -46,9 +46,9 @@
         <tr>
           <td style="text-align:center;" class="content is-medium"><%- result[i].nom %></td>
           <td style="text-align:center;" class="content is-medium"><%- result[i].prenom %></td>
-          <td style="text-align:center;" class="content is-medium"><a href="/views/informations.ejs/<%= result[i].id %>">Voir</a></td>
-          <td style="text-align:center;" class="content is-medium"><a href="/views/informations.ejs/modifierPatient/<%= result[i].id %>">Modifier</a></td>
-          <td style="text-align:center;" class="content is-medium"><a href="/views/informations.ejs/supprimerPatient/<%= result[i].id %>">Supprimer</a></td>
+          <td style="text-align:center;" class="content is-medium"><a href="/patient/<%= result[i].id %>">Voir</a></td>
+          <td style="text-align:center;" class="content is-medium"><a href="/patient/modifierPatient/<%= result[i].id %>">Modifier</a></td>
+          <td style="text-align:center;" class="content is-medium"><a href="/patient/supprimerPatient/<%= result[i].id %>">Supprimer</a></td>
         </tr>
         <% } %>
     </tbody>

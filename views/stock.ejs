@@ -5,22 +5,72 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/composants.css">
-    <link rel="stylesheet" href="/css/stock.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <%- include("header") %>
-    <table>
-        <tr>
-            <td><b>Médicaments</b></td>
-            <td><b>Quantité (bois)</b></td>
-        </tr>
-        <% for (let i = 0; i < result.length; i++) { %>
-            <tr>
-                <td><%- result[i].Nom %></td>
-                <td><%- result[i].Quantité %></td>
-            </tr>
-        <% } %>
-    </table>
+    <div class="chart-container" style="position: relative; height:40vh; width:80vw">
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <script src="/js/stock.js"></script>
+    <script type="text/javascript">
+        // Récupération du nom des médicaments
+        let medicaments = "<%= medicaments %>"
+        let longueurMedicaments = "<%= medicaments.length %>"
+        medicaments = medicaments.split(',')
+        // Récupération de la quantite
+        let quantite = '<%= quantite %>'
+        quantite = quantite.split(',')
+
+        let quantiteEnStock = []
+        let mois = []
+        console.log(quantite)
+        for (let i = 0; i < quantite.length; i++) {
+            if (i%7 == 0) {
+                quantiteEnStock.push(quantite[i])
+            } else {
+                mois.push(quantite[i])
+                if (mois.length == 6){
+                    quantiteEnStock.push(mois)
+                    mois = []
+                }
+            }
+        }
+        const ctx = document.getElementById('myChart').getContext('2d')
+        let longueur = "<%= result.length %>"
+        let test = {
+            type: 'line',
+            data: {
+                labels: ['1 mois', '2 mois', '3 mois', '4 mois', '5 mois', '6 mois'],
+                datasets: []
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        }
+        let j = 1
+        for (let i = 0; i < longueur*2; i = i + 2) {
+            test.data.datasets.push( {
+            label: quantiteEnStock[i],
+                    data: [quantiteEnStock[j][0], quantiteEnStock[j][1], quantiteEnStock[j][2], quantiteEnStock[j][3], quantiteEnStock[j][4], quantiteEnStock[j][5] ],
+                    color: "purple",
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)'
+                    ],
+                    borderWidth: 1
+            })
+            j = j + 2
+        }
+    const myChart = new Chart(ctx, test)
+    </script>
 </body>
 </html>
