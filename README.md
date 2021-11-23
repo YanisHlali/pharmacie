@@ -3,20 +3,24 @@
 # Description
     C'est un outil intranet de gestion des clients et des ordonnances pour les clients ayant des traitements réguliers.
 
+# Technologie utilisée
+    -Node.js
+    -Chart.js
+    -CSS
+    -HTML
+    -MySQL
 # Require
     Navigateur internet
     Editeur de code
     Installer Node.js (si non installer)
 
-# A Installer
-    Après le download du fichier ouvrir server.js sur un éditeur de code,
-    puis ouvrir un terminal et effectuées les étapes suivante
-
-    cd utilisateur/Nom du dossier(pharmaciemain).
-
-    Effectuées les commandes suivante pour pouvoir utiliser l'application correctement.
-    npm install -g nodemon
-    npm install pdfkit
-    Puis faite nodemon server.js
-    Puis taper sur un navigateur localhost/3000,
-    si le server n'a eu aucune erreur alors l'interface intranet fonctionnera.
+# Pour faire fonctionner le programme
+    Télécharger le fichier et l'extraire
+    Ouvrir le fichier "server.js" sur un éditeur de code
+    Ouvrir le terminal et taper :
+        -npm install -g nodemon
+        -npm install pdfkit
+        -nodemon server.js (ou node server.js)
+    Lancer botre navigateur et taper dans la barre de recherche (ou URL):
+        -"127.0.0.1:3000"
+   
