@@ -4,12 +4,6 @@ const PDFDocument = require('pdfkit');
 async function formulaireOrdonnance(id) {
     return new Promise((resolve,reject) => {
         db.query(`SELECT * FROM ordonnance,traitement WHERE ordonnance.id=traitement.idOrdonnance AND ordonnance.id=${id}`, (err,result) => {
-            // if (result != "") {
-            //     console.log(result)
-            //     res.render("traitement.ejs", {result: result})
-            // } else {
-            //     res.render("traitement.ejs", {result: ""})
-            // }
             if (err) throw err;
             return resolve(result);
         })

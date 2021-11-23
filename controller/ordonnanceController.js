@@ -1,18 +1,22 @@
+// Utilisation des modèles ordonnance,traitement et patient
 const ordonnanceDB = require("../models/ordonnanceModels");
 const traitementDB = require('../models/traitementModels');
 const patientDB = require("../models/patientModels");
+// Utilisation du module pdfkit
 const PDFDocument = require("pdfkit");
-
+// Affiche le formulaire pour modifier les ordonnances
 async function formulaireOrdonnance (req,res) {
+  // Récupère les ordonnances existantes
   let result = await ordonnanceDB.formulaireOrdonnance(req.params.id);
   res.render("traitement.ejs", {result: result})
 }
-
+// Affiche les ordonnances
 async function afficherOrdonnance(req, res) {
+  // Vérifie si l'ordonnance existe
   let result = await ordonnanceDB.afficherOrdonnance(req.params.id);
   if (result != "") {
     const doc = new PDFDocument();
-
+    // Placement des informations dans le pdf
     doc
       .fontSize(15)
       .text(result[0].prenomMedecin + " " + result[0].nomMedecin, 50, 50)
@@ -40,11 +44,13 @@ async function afficherOrdonnance(req, res) {
     doc.pipe(res);
     doc.end();
   } else {
+    // Affiche un message d'erreur si il n'y a aucun traitement dans l'ordonnance
     res.render("informations.ejs", { result: "" });
   }
 }
-
+// Ajouterl'ordonnance
 async function ajouterOrdonnance(req, res) {
+  // Créer une ordonnance avec les informations du formulaire
   await ordonnanceDB.ajouterOrdonnance(
     req.body.date,
     req.body.prenom,
@@ -52,6 +58,7 @@ async function ajouterOrdonnance(req, res) {
     req.body.maladie,
     req.params.id
   );
+  // Redirige vers la page info du patient
   res.redirect(`/patient/${req.params.id}`);
 }
 
@@ -89,7 +96,7 @@ async function supprimerOrdonnance (req, res) {
   await ordonnanceDB.supprimerOrdonnance(req.params.id);
   res.redirect("/liste");
 };
-
+// Exporte les fonctions
 module.exports = {
   formulaireOrdonnance,
   afficherOrdonnance,

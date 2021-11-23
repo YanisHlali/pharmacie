@@ -1,4 +1,3 @@
-const db = require("../models/models");
 const patientDB = require("../models/patientModels");
 const traitementDB = require("../models/traitementModels");
 const ordonnanceDB = require("../models/ordonnanceModels");
