@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+</head>
+
+<body>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <h1 class="title is-1"><a href="/">Pharmacie SAUTHEUHZ</a></h1>
+
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a class="button is-link" href="/patient/formulaire">Nouveau</a>
+          <a class="button is-link" href="/stock">Stock</a>
+        </div>
+      </div>
+    </div>
+    </div>
+  </nav>
+  <table class="table is-fullwidth">
+    <thead>
+      <tr>
+        <th style="text-align:center;" class="content is-medium">Nom</th>
+        <th style="text-align:center;" class="content is-medium">Prenom</th>
+        <th class="content is-medium"></th>
+        <th class="content is-medium"></th>
+        <th class="content is-medium"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for (let i=0; i < result.length; i++) { %>
+        <tr>
+          <td style="text-align:center;" class="content is-medium"><%- result[i].nom %></td>
+          <td style="text-align:center;" class="content is-medium"><%- result[i].prenom %></td>
+          <td style="text-align:center;" class="content is-medium"><a href="/patient/<%= result[i].id %>">Voir</a></td>
+          <td style="text-align:center;" class="content is-medium"><a href="/patient/modifierPatient/<%= result[i].id %>">Modifier</a></td>
+          <td style="text-align:center;" class="content is-medium"><a href="/patient/supprimerPatient/<%= result[i].id %>">Supprimer</a></td>
+        </tr>
+        <% } %>
+    </tbody>
+  </table>
+  </div>
+</body>
+
+</html>
